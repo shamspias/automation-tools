@@ -15,6 +15,7 @@
 
 > Libraries
 
+- [OpenAI](https://pypi.org/project/openai/)
 - [Deep_translator](https://pypi.org/project/deep-translator/)
 - [Pdf2docx](https://pypi.org/project/pdf2docx/)
 - [Beautifulsoup4](https://pypi.org/project/beautifulsoup4/)
