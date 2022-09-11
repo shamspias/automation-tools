@@ -4,7 +4,7 @@
 
 ### Technology
 
-> language
+> Programming Language
 
 - Python3
 
