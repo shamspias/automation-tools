@@ -46,8 +46,7 @@
 - Open terminal
 
 ```
-sudo apt-get install python3-pip
-sudo apt-get install python3-venv
+sudo apt-get install python3-pip -y && sudo apt-get install python3-venv -y
 ```
 
 After that just type
