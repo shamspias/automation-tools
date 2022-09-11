@@ -15,7 +15,10 @@
 
 > Libraries
 
-- Deep_translator
+- [Deep_translator](https://pypi.org/project/deep-translator/)
+- [Pdf2docx](https://pypi.org/project/pdf2docx/)
+- [Beautifulsoup4](https://pypi.org/project/beautifulsoup4/)
+- [pypandoc](https://pypi.org/project/pypandoc/)
 
 > Tools
 
@@ -69,7 +72,7 @@ and press "A" then Enter.
 - Install the requirement.txt
 
 > Windows
-	
+
 `pip install -r requirement.txt`
 
 > Linux
@@ -79,6 +82,7 @@ and press "A" then Enter.
 ### RUN
 
 `python manage.py runserver ip:port`
+
 - Example
 
 `python manage.py runserver 0.0.0.0:8000`
