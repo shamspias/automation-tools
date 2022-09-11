@@ -1,6 +1,12 @@
 # Automation Tools
 
-## Make Life Easy Work Faster
+## Boost Your Work With Automation
+
+### Automated Tools
+
+- Translate Documents with multiple Translator
+- Proofreading with GPT-3 davinci model
+- Automatic Blog Maker with GPT-3 davinci model
 
 ### Technology
 
@@ -24,12 +30,6 @@
 > Tools
 
 - GPT-3
-
-### Automated Tools
-
-- Translate Documents with multiple Translator
-- Proofreading with GPT-3 davinci model
-- Automatic Blog Maker with GPT-3 davinci model
 
 ### Installation
 
