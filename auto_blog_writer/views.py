@@ -15,6 +15,12 @@ class TopicAPIView(APIView):
     serializer_class = BlogSerializers
 
     def post(self, request, *args, **kwargs):
+        """
+        :param request: String
+        :param args: topic
+        :param kwargs:
+        :return:
+        """
         topic = request.data.get('topic', '')
         return Response(generate_blog_topics(topic), status=status.HTTP_200_OK)
 
@@ -26,6 +32,12 @@ class SectionsAPIView(APIView):
     serializer_class = BlogSerializers
 
     def post(self, request, *args, **kwargs):
+        """
+        :param request: String
+        :param args: topic
+        :param kwargs:
+        :return:
+        """
         topic = request.data.get('topic', '')
         return Response(generate_blog_sections(topic), status=status.HTTP_200_OK)
 
@@ -37,6 +49,12 @@ class SectionDetailsAPIView(APIView):
     serializer_class = BlogSerializers
 
     def post(self, request, *args, **kwargs):
+        """
+        :param request: String, String
+        :param args: topic, section
+        :param kwargs:
+        :return:
+        """
         topic = request.data.get('topic', '')
         section = request.data.get('section', '')
         return Response(blog_section_expander(topic, section), status=status.HTTP_200_OK)

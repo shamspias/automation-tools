@@ -7,8 +7,7 @@ from .serializers import ProofreadingSerializers
 class ProofreaderAPIView(APIView):
     """
     API View to get word and send
-    :parameter: string-> word
-    example:
+    Example:
     {
         "word": "Hello There"
     }
@@ -17,5 +16,11 @@ class ProofreaderAPIView(APIView):
     serializer_class = ProofreadingSerializers
 
     def post(self, request, *args, **kwargs):
+        """
+        :param request: string
+        :param args: word
+        :param kwargs:
+        :return:
+        """
         word = request.data.get('word', '')
         return Response(ai_proofreading(word), status=status.HTTP_200_OK)
