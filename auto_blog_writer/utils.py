@@ -19,6 +19,8 @@ def generate_blog_topics(prompt):
     context['input'] = prompt
     my_text = response['choices'][0]['text']
     context['topics'] = my_text.split("\n")
+    while "" in context['topics']:
+        context['topics'].remove("")
     return context
 
 
@@ -55,8 +57,12 @@ def blog_section_expander(prompt, section):
         presence_penalty=0
     )
     context['input_parent'] = section
-    context['input'] = prompt
-    # my_text = response['choices'][0]['text']
-    # context['section_details'] = my_text.split("\n")
-    context['section_details'] = response['choices'][0]['text']
+    context['input'] = {
+        "Topic": prompt,
+        "Section": section
+    }
+    my_text = response['choices'][0]['text']
+    context['section_details'] = my_text.split("\n")
+    while "" in context['section_details']:
+        context['section_details'].remove("")
     return context
