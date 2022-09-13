@@ -7,6 +7,14 @@ from .serializers import ProofreadingSerializers
 class ProofreaderAPIView(APIView):
     """
     API View to get word and send
+
+    :parameter: string-> word
+    example:
+
+    {
+        "word": "Hello There"
+    }
+
     """
     serializer_class = ProofreadingSerializers
 
