@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from rest_framework.views import APIView
 
-# Create your views here.
+
+class ProofreaderAPIView(APIView):
+    """
+    API View to get word and send 
+    """
+    pass
