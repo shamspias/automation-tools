@@ -16,6 +16,7 @@ class TopicAPIView(APIView):
 
     def post(self, request, *args, **kwargs):
         """
+        Blog topic names
         :param request: String
         :param args: topic
         :param kwargs:
@@ -33,6 +34,7 @@ class SectionsAPIView(APIView):
 
     def post(self, request, *args, **kwargs):
         """
+        Blog section names from topic
         :param request: String
         :param args: topic
         :param kwargs:
@@ -50,6 +52,7 @@ class SectionDetailsAPIView(APIView):
 
     def post(self, request, *args, **kwargs):
         """
+        Blog section details get from section with topic
         :param request: String, String
         :param args: topic, section
         :param kwargs:
