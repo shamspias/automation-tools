@@ -1,7 +1,7 @@
 """For production, we'll automatically generate settings from prod.py via ci/cd script"""
 
 # DEV = False
-env_name = "local"
+env_name = "stage"
 
 if env_name == "prod":
     from .production import *
