@@ -16,5 +16,8 @@ def ai_proofreading(prompt):
         presence_penalty=0
     )
     context['input'] = prompt
-    context['correction'] = response['choices'][0]['text']
+    my_text = response['choices'][0]['text']
+    context['correction'] = my_text.split('\n')
+    while "" in context['correction']:
+        context['correction'].remove("")
     return context
