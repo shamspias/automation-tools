@@ -15,8 +15,7 @@ import environ
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-PROJECT_DIR = Path(__file__).resolve().parent.parent
-BASE_DIR = os.path.dirname(PROJECT_DIR)
+BASE_DIR = Path(__file__).resolve().parent.parent.parent
 
 env = environ.Env(
     DEBUG=(bool, False),
@@ -29,7 +28,7 @@ environ.Env.read_env(envfile_path)
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('SECRET_KEY')
-
+OPEN_AI_KEY = env('OPEN_AI_KEY')
 # Application definition
 
 DJANGO_DEFAULT_APPS = [
@@ -71,8 +70,7 @@ ROOT_URLCONF = 'automation_tools.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates']
-        ,
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
