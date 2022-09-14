@@ -26,12 +26,25 @@
 - [Pdf2docx](https://pypi.org/project/pdf2docx/)
 - [Beautifulsoup4](https://pypi.org/project/beautifulsoup4/)
 - [pypandoc](https://pypi.org/project/pypandoc/)
+- [pdfkit](https://pypi.org/project/pdfkit/)
 
 > Tools
 
 - GPT-3
 
 ### Installation
+
+#### Download and Install Additional Software
+
+- pdfkit
+> Windows
+
+- Download link: [WKHTMLTOPDF](https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.4/wkhtmltox-0.12.4_msvc2015-win64.exe)
+- Set: PATH variable set binary folder in Environment variables.
+
+> Linux
+
+- `sudo apt-get install wkhtmltopdf -y`
 
 #### First Create a Virtual Environment
 
