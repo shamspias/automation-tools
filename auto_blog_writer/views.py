@@ -17,10 +17,9 @@ class TopicAPIView(APIView):
     def post(self, request, *args, **kwargs):
         """
         Blog topic names
-        :param request: String
-        :param args: topic
-        :param kwargs:
-        :return:
+        {
+            "topic": "Your text"
+        }
         """
         topic = request.data.get('topic', '')
         return Response(generate_blog_topics(topic), status=status.HTTP_200_OK)
@@ -35,10 +34,9 @@ class SectionsAPIView(APIView):
     def post(self, request, *args, **kwargs):
         """
         Blog section names from topic
-        :param request: String
-        :param args: topic
-        :param kwargs:
-        :return:
+        {
+            "topic": "Your text"
+        }
         """
         topic = request.data.get('topic', '')
         return Response(generate_blog_sections(topic), status=status.HTTP_200_OK)
@@ -53,10 +51,10 @@ class SectionDetailsAPIView(APIView):
     def post(self, request, *args, **kwargs):
         """
         Blog section details get from section with topic
-        :param request: String, String
-        :param args: topic, section
-        :param kwargs:
-        :return:
+        {
+            "topic": "Your text" ,
+            "section": "Introduction"
+        }
         """
         topic = request.data.get('topic', '')
         section = request.data.get('section', '')
