@@ -46,7 +46,7 @@
 
 - `sudo apt-get install wkhtmltopdf -y`
 
-#### First Create a Virtual Environment
+#### Create a Virtual Environment
 
 > Windows
 
