@@ -1,5 +1,7 @@
 from pdf2docx import parse
 
+import pdfkit
+
 
 # PDF to Word
 def pdf_to_docx(pdf_file, word_file):
@@ -20,11 +22,25 @@ def pdf_to_html(pdf_file, html_file):
     :return: File(HTML)
     """
     return Convert.ToHtml(pdf_file, html_file)
+
+
 # Word to PDF
 
 # Word to HTML
 
 # HTML to PDF
+def html_to_pdf(html, pdf_file, string=True):
+    """
+    HTML to PDF
+    :param html:
+    :param pdf_file:
+    :param string:
+    :return:
+    """
+    if string:
+        return pdfkit.from_string(html, pdf_file)
+    else:
+        return pdfkit.from_file(html, pdf_file)
 
 # HTML to Word
 
