@@ -3,6 +3,7 @@ import os
 import speech_recognition as sr
 from pdf2docx import parse
 import deep_translator as dt
+import subprocess
 
 
 # PDF to Word
@@ -17,6 +18,34 @@ def pdf_to_docx(pdf_file, word_file):
 
 
 # Word to PDF
+def doc2pdf_linux(doc):
+    """
+    convert a doc/docx document to pdf format (linux only, requires libreoffice)
+    :param doc: path to document
+    """
+    path_project = 'media/files/translate/'
+    # cmd = ['libreoffice --convert-to pdf ' + path_project + doc + ' --outdir ' + path_project + file_path]
+    cmd = 'libreoffice --convert-to pdf'.split() + [doc] + ['--outdir'] + [path_project]
+    print(cmd)
+    p = subprocess.Popen(cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
+    p.wait(timeout=1000)
+    stdout, stderr = p.communicate()
+    if stderr:
+        raise subprocess.SubprocessError(stderr)
+
+
+def word_to_pdf(word_file, pdf_file, save_pdf_location):
+    try:
+        from docx2pdf import convert
+        convert(word_file, pdf_file)
+        return_pdf_path = save_pdf_location
+        return return_pdf_path
+
+    except:
+        doc2pdf_linux(word_file)
+        return_pdf_path = save_pdf_location
+        return return_pdf_path
+
 
 # Word to HTML
 def word_to_html(word_file, html_file=None):
