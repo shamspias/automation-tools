@@ -32,6 +32,7 @@
 > Tools
 
 - GPT-3
+- FFmpeg
 
 ### Installation
 
@@ -48,6 +49,12 @@
 
 #### 2. pypandoc
 - [Installation Process](https://pandoc.org/installing.html)
+
+#### 3. FFmpeg
+
+- [Windows](https://www.geeksforgeeks.org/how-to-install-ffmpeg-on-windows/)
+- [Linux](https://www.tecmint.com/install-ffmpeg-in-linux/)
+- [MACOS](https://macappstore.org/ffmpeg/)
 
 #### Create a Virtual Environment
 
