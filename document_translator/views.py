@@ -57,8 +57,12 @@ class TranslateVideoAPIView(APIView):
         :param kwargs:
         :return:
         """
+        source_ln = request.data.get('source_ln', '')
+        target_ln = request.data.get('target_ln', '')
+        duration = request.data.get('duration', '')
         document = request.FILES.get('document')
-        return Response(self.avt.translate_video(document), status=status.HTTP_200_OK)
+        return Response(self.avt.translate_video(video_file=document, source_lan=source_ln, target_lan=target_ln,
+                                                 duration=duration), status=status.HTTP_200_OK)
 
 
 class TranslateAudioAPIView(APIView):
@@ -76,5 +80,9 @@ class TranslateAudioAPIView(APIView):
         :param kwargs:
         :return:
         """
+        source_ln = request.data.get('source_ln', '')
+        target_ln = request.data.get('target_ln', '')
+        duration = request.data.get('duration', '')
         document = request.FILES.get('document')
-        return Response(self.avt.translate_audio(document), status=status.HTTP_200_OK)
+        return Response(self.avt.translate_audio(audio_file=document, source_lan=source_ln, target_lan=target_ln,
+                                                 duration=duration), status=status.HTTP_200_OK)
