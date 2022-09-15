@@ -26,14 +26,30 @@
 - [Pdf2docx](https://pypi.org/project/pdf2docx/)
 - [Beautifulsoup4](https://pypi.org/project/beautifulsoup4/)
 - [pypandoc](https://pypi.org/project/pypandoc/)
+- [drf-yasg](https://pypi.org/project/drf-yasg/)
+- [SpeechRecognition](https://pypi.org/project/SpeechRecognition/)
+- [django-environ](https://pypi.org/project/django-environ/)
+- [django-cors-headers](https://pypi.org/project/django-cors-headers/)
 
 > Tools
 
 - GPT-3
+- FFmpeg
 
 ### Installation
 
-#### First Create a Virtual Environment
+#### Download and Install Additional Software
+
+#### 1. pypandoc
+- [Installation Process](https://pandoc.org/installing.html)
+
+#### 2. FFmpeg
+
+- [Windows](https://www.geeksforgeeks.org/how-to-install-ffmpeg-on-windows/)
+- [Linux](https://www.tecmint.com/install-ffmpeg-in-linux/)
+- [MACOS](https://macappstore.org/ffmpeg/)
+
+#### Create a Virtual Environment
 
 > Windows
 
