@@ -60,4 +60,4 @@ def language_translation(source_doc, target_doc, source_lan, target_lan):
     os.remove("output1.html")
 
     print("Document translation is completed.")
-    return True
+    return target
