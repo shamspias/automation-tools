@@ -15,7 +15,7 @@ from deep_translator import (GoogleTranslator,
                              batch_detection)
 
 
-def language_translation(source_doc, target_doc, source_lan="auto", target_lan="de"):
+def language_translation(source_doc, target_doc, source_lan, target_lan):
     """
     To translate Language
     return docx file
@@ -25,6 +25,10 @@ def language_translation(source_doc, target_doc, source_lan="auto", target_lan="
     target = target_doc.strip()
     target_language = target_lan.strip()
 
+    if not source_language:
+        source_language = "auto"
+    if not target_language:
+        target_language = "de"
     output = pypandoc.convert_file(source, 'html5')
 
     soup = BeautifulSoup(output, features="lxml")
@@ -50,6 +54,7 @@ def language_translation(source_doc, target_doc, source_lan="auto", target_lan="
 
     with open("output1.html", "w") as file:
         file.write(str(soup))
+    # print(soup)
 
     pypandoc.convert_file('output1.html', 'docx', outputfile=target)
     os.remove("output1.html")
