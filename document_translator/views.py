@@ -51,8 +51,20 @@ class TranslatePDFAPIView(APIView):
         source_ln = request.data.get('source_ln', '')
         target_ln = request.data.get('target_ln', '')
         document = request.FILES.get('document', '')
-        translated_file = self.tp.translate_pdf(pdf_file=document, source_ln=source_ln, target_ln=target_ln)
-        return Response(translated_file, status=status.HTTP_200_OK)
+        if document:
+            random_name = ''.join(random.choices(string.ascii_lowercase + string.digits, k=5))
+            new_name = random_name + document.name
+
+            _file = TranslatedFile.objects.create(name=new_name, my_file=document)
+            file_obj = TranslatedFile.objects.get(name__exact=new_name)
+
+            translated_file = self.tp.translate_pdf(pdf_file=file_obj, source_ln=source_ln, target_ln=target_ln)
+            file_obj.translated_file = translated_file
+            file_obj.save()
+
+            return Response(translated_file, status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 class TranslateVideoAPIView(APIView):
