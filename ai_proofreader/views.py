@@ -1,8 +1,16 @@
+import random
+import string
 from rest_framework import status
 from rest_framework.views import APIView, Response
 
 from .serializers import ProofreadingSerializers, ProofreadingFileSerializers
+from .models import Proofreading
 from .utils import ai_proofreading
+from document_translator.utils import (
+    TranslateDocx,
+    TranslatePDF,
+    AudioVideoTranslate,
+)
 
 
 class ProofreaderAPIView(APIView):
@@ -47,5 +55,18 @@ class ProofreaderDocumentAPIView(APIView):
         :param kwargs:
         :return:
         """
-        word = request.FILES.get('document')
-        return Response(ai_proofreading(word), status=status.HTTP_200_OK)
+        document = request.FILES.get('document', '')
+        if document:
+            random_name = ''.join(random.choices(string.ascii_lowercase + string.digits, k=5))
+            new_name = random_name + document.name
+
+            _file = Proofreading.objects.create(name=new_name, my_file=document)
+            file_obj = Proofreading.objects.get(name__exact=new_name)
+
+            translated_file = self.tp.translate_pdf(pdf_file=file_obj)
+            file_obj.translated_file = translated_file
+            file_obj.save()
+
+            return Response(file_obj.translated_file.url, status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
