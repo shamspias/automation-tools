@@ -35,7 +35,7 @@ class TranslateDocumentAPIView(APIView):
             file_obj.translated_file = translated_file
             file_obj.save()
 
-            return Response(translated_file, status=status.HTTP_200_OK)
+            return Response(file_obj.translated_file.url, status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -62,7 +62,7 @@ class TranslatePDFAPIView(APIView):
             file_obj.translated_file = translated_file
             file_obj.save()
 
-            return Response(translated_file, status=status.HTTP_200_OK)
+            return Response(file_obj.translated_file.url, status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
