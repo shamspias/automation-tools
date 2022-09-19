@@ -13,3 +13,15 @@ class Proofreading(models.Model):
 
     def __str__(self):
         return "File : " + self.name
+
+    def check_pdf(self):
+        if self.my_file.name.endswith('.pdf'):
+            return True
+        else:
+            return False
+
+    def check_docx(self):
+        if self.my_file.name.endswith('.docx') or self.my_file.name.endswith('.doc'):
+            return True
+        else:
+            return False
