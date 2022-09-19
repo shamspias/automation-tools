@@ -47,7 +47,7 @@ class ProofreaderDocumentAPIView(APIView):
     """
     serializer_class = ProofreadingFileSerializers
     tp = TranslatePDF()
-    td = TranslateDocx
+    td = TranslateDocx()
 
     def post(self, request, *args, **kwargs):
         """
@@ -66,9 +66,9 @@ class ProofreaderDocumentAPIView(APIView):
             file_obj = Proofreading.objects.get(name__exact=new_name)
 
             if file_obj.check_pdf:
-                translated_file = self.tp.translate_pdf(pdf_file=file_obj)
+                translated_file = self.tp.translate_pdf(pdf_file=file_obj, proofread=True)
             elif file_obj.check_docx:
-                translated_file = self.td.translate_docx(doc_file=file_obj)
+                translated_file = self.td.translate_docx(doc_file=file_obj, proofread=True)
             else:
                 return Response(status=status.HTTP_404_NOT_FOUND)
 
