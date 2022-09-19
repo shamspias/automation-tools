@@ -12,10 +12,8 @@ class TranslatePDF:
         convert a doc/docx document to pdf format (linux only, requires libreoffice)
         :param doc: path to document
         """
-        path_project = 'media/files/translate/'
-        # cmd = ['libreoffice --convert-to pdf ' + path_project + doc + ' --outdir ' + path_project + file_path]
+        path_project = settings.CONVERTED_FILE_LOCATION + 'translated/'
         cmd = 'libreoffice --convert-to pdf'.split() + [doc] + ['--outdir'] + [path_project]
-        print(cmd)
         p = subprocess.Popen(cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
         p.wait(timeout=1000)
         stdout, stderr = p.communicate()
@@ -42,12 +40,10 @@ class TranslatePDF:
         try:
             from docx2pdf import convert
             convert(target_word_file, new_pdf_file_name)
-            return_pdf_path = settings.CONVERTED_FILE_LOCATION + "translated/" + target_ln + "_" + pdf_file_name
 
         except:
             self.doc2pdf_linux(target_word_file)
-            return_pdf_path = settings.CONVERTED_FILE_LOCATION + "translated/" + pdf_file_name
 
         os.remove(word_file)
         os.remove(target_word_file)
-        return return_pdf_path
+        return "translated/" + pdf_file_name
