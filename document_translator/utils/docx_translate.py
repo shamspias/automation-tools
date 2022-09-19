@@ -3,7 +3,7 @@ from django.conf import settings
 
 
 class TranslateDocx:
-    def translate_docx(self, doc_file, source_ln, target_ln):
+    def translate_docx(self, doc_file, source_ln="auto", target_ln="en"):
         """
         translate the word
         """

@@ -20,7 +20,7 @@ class TranslatePDF:
         if stderr:
             raise subprocess.SubprocessError(stderr)
 
-    def translate_pdf(self, pdf_file, source_ln, target_ln):
+    def translate_pdf(self, pdf_file, source_ln="auto", target_ln="en"):
         """
         make pdf into word
         translate the word make it into pdf and remove the converted word
