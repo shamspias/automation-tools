@@ -2,6 +2,7 @@ from pdf2docx import parse
 import os
 from .translate_core import language_translation
 import subprocess
+from django.conf import settings
 
 
 class TranslatePDF:
@@ -11,10 +12,8 @@ class TranslatePDF:
         convert a doc/docx document to pdf format (linux only, requires libreoffice)
         :param doc: path to document
         """
-        path_project = 'media/files/translate/'
-        # cmd = ['libreoffice --convert-to pdf ' + path_project + doc + ' --outdir ' + path_project + file_path]
+        path_project = settings.CONVERTED_FILE_LOCATION + 'translated/'
         cmd = 'libreoffice --convert-to pdf'.split() + [doc] + ['--outdir'] + [path_project]
-        print(cmd)
         p = subprocess.Popen(cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
         p.wait(timeout=1000)
         stdout, stderr = p.communicate()
@@ -37,20 +36,14 @@ class TranslatePDF:
 
         new_path = language_translation(word_file, target_word_file, source_ln, target_ln)
 
-        new_pdf_file_name = "static_cdn/media_root/translated/" + target_ln + "_" + pdf_file_name
-        # try:
-        #     from docx2pdf import convert
-        #     convert(target_word_file, new_pdf_file_name)
-        #     return_pdf_path = "static_cdn/media_root/translated/" + target_ln + "_" + pdf_file_name
-        #
-        # except:
-        #     self.doc2pdf_linux(target_word_file)
-        #     return_pdf_path = "static_cdn/media_root/translated/" + pdf_file_name
+        new_pdf_file_name = settings.CONVERTED_FILE_LOCATION + "translated/" + target_ln + "_" + pdf_file_name
+        try:
+            from docx2pdf import convert
+            convert(target_word_file, new_pdf_file_name)
 
-        from docx2pdf import convert
-        convert(new_path, new_pdf_file_name)
-        return_pdf_path = "static_cdn/media_root/translated/" + target_ln + "_" + pdf_file_name
+        except:
+            self.doc2pdf_linux(target_word_file)
 
         os.remove(word_file)
         os.remove(target_word_file)
-        return return_pdf_path
+        return "translated/" + pdf_file_name

@@ -9,6 +9,9 @@ STATICFILES_DIRS = (
 )
 
 MEDIA_ROOT = os.path.join(BASE_DIR, "static_cdn", "media_root")
+
+CONVERTED_FILE_LOCATION = "static_cdn/media_root/"
+
 #
 # DATABASES = {
 #     'default': {
