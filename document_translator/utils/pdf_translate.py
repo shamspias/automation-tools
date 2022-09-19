@@ -35,17 +35,21 @@ class TranslatePDF:
 
         target_word_file = pdf_file_name[:-4] + ".docx"
 
-        language_translation(word_file, target_word_file, source_ln, target_ln)
+        new_path = language_translation(word_file, target_word_file, source_ln, target_ln)
 
-        new_pdf_file_name = "media/files/" + target_ln + "_" + pdf_file_name
-        try:
-            from docx2pdf import convert
-            convert(target_word_file, new_pdf_file_name)
-            return_pdf_path = "files/" + target_ln + "_" + pdf_file_name
+        new_pdf_file_name = "static_cdn/media_root/translated/" + target_ln + "_" + pdf_file_name
+        # try:
+        #     from docx2pdf import convert
+        #     convert(target_word_file, new_pdf_file_name)
+        #     return_pdf_path = "static_cdn/media_root/translated/" + target_ln + "_" + pdf_file_name
+        #
+        # except:
+        #     self.doc2pdf_linux(target_word_file)
+        #     return_pdf_path = "static_cdn/media_root/translated/" + pdf_file_name
 
-        except:
-            self.doc2pdf_linux(target_word_file)
-            return_pdf_path = "files/translate/" + pdf_file_name
+        from docx2pdf import convert
+        convert(new_path, new_pdf_file_name)
+        return_pdf_path = "static_cdn/media_root/translated/" + target_ln + "_" + pdf_file_name
 
         os.remove(word_file)
         os.remove(target_word_file)
