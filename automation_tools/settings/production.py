@@ -3,6 +3,8 @@ from .base_main import *
 STATIC_ROOT = '/home/ubuntu/automation_tools/public_html/static'
 MEDIA_ROOT = '/home/ubuntu/automation_tools/public_html/media'
 
+CONVERTED_FILE_LOCATION = "/home/ubuntu/automation_tools/public_html/media/"
+
 DEBUG = env('DEBUG')
 ALLOWED_HOSTS = [env('ALLOWED_HOSTS')]
 

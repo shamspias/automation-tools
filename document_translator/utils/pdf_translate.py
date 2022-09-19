@@ -2,6 +2,7 @@ from pdf2docx import parse
 import os
 from .translate_core import language_translation
 import subprocess
+from django.conf import settings
 
 
 class TranslatePDF:
@@ -37,7 +38,7 @@ class TranslatePDF:
 
         new_path = language_translation(word_file, target_word_file, source_ln, target_ln)
 
-        new_pdf_file_name = "static_cdn/media_root/translated/" + target_ln + "_" + pdf_file_name
+        new_pdf_file_name = settings.CONVERTED_FILE_LOCATION + "translated/" + target_ln + "_" + pdf_file_name
         # try:
         #     from docx2pdf import convert
         #     convert(target_word_file, new_pdf_file_name)
@@ -49,7 +50,7 @@ class TranslatePDF:
 
         from docx2pdf import convert
         convert(new_path, new_pdf_file_name)
-        return_pdf_path = "static_cdn/media_root/translated/" + target_ln + "_" + pdf_file_name
+        return_pdf_path = settings.CONVERTED_FILE_LOCATION + "translated/" + target_ln + "_" + pdf_file_name
 
         os.remove(word_file)
         os.remove(target_word_file)
