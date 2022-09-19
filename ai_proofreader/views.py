@@ -38,10 +38,10 @@ class ProofreaderAPIView(APIView):
 
 class ProofreaderDocumentAPIView(APIView):
     """
-    API View to get word
+    API View to get proofreading
     Example:
     {
-        "word": "Hello There"
+        "document": "FILE"
     }
 
     """
@@ -72,9 +72,9 @@ class ProofreaderDocumentAPIView(APIView):
             else:
                 return Response(status=status.HTTP_404_NOT_FOUND)
 
-            file_obj.translated_file = translated_file
+            file_obj.proofread_file = translated_file
             file_obj.save()
 
-            return Response(file_obj.translated_file.url, status=status.HTTP_200_OK)
+            return Response(file_obj.proofread_file.url, status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
