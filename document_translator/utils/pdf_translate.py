@@ -7,12 +7,16 @@ from django.conf import settings
 
 class TranslatePDF:
 
-    def doc2pdf_linux(self, doc):
+    def doc2pdf_linux(self, doc, proofread=False):
         """
         convert a doc/docx document to pdf format (linux only, requires libreoffice)
         :param doc: path to document
         """
-        path_project = settings.CONVERTED_FILE_LOCATION + 'translated/'
+        if proofread:
+            path_project = settings.CONVERTED_FILE_LOCATION + 'proofread/'
+        else:
+            path_project = settings.CONVERTED_FILE_LOCATION + 'translated/'
+
         cmd = 'libreoffice --convert-to pdf'.split() + [doc] + ['--outdir'] + [path_project]
         p = subprocess.Popen(cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
         p.wait(timeout=1000)
@@ -20,7 +24,7 @@ class TranslatePDF:
         if stderr:
             raise subprocess.SubprocessError(stderr)
 
-    def translate_pdf(self, pdf_file, source_ln, target_ln):
+    def translate_pdf(self, pdf_file, source_ln="auto", target_ln="en", proofread=False):
         """
         make pdf into word
         translate the word make it into pdf and remove the converted word
@@ -36,14 +40,24 @@ class TranslatePDF:
 
         new_path = language_translation(word_file, target_word_file, source_ln, target_ln)
 
-        new_pdf_file_name = settings.CONVERTED_FILE_LOCATION + "translated/" + target_ln + "_" + pdf_file_name
+        if proofread:
+            new_pdf_file_name = settings.CONVERTED_FILE_LOCATION + "proofread/" + target_ln + "_" + pdf_file_name
+        else:
+            new_pdf_file_name = settings.CONVERTED_FILE_LOCATION + "translated/" + target_ln + "_" + pdf_file_name
+
         try:
             from docx2pdf import convert
             convert(target_word_file, new_pdf_file_name)
 
         except:
-            self.doc2pdf_linux(target_word_file)
+            if proofread:
+                self.doc2pdf_linux(target_word_file, proofread=True)
+            else:
+                self.doc2pdf_linux(target_word_file)
 
         os.remove(word_file)
         os.remove(target_word_file)
-        return "translated/" + pdf_file_name
+        if proofread:
+            return "proofread/" + pdf_file_name
+        else:
+            return "translated/" + pdf_file_name
