@@ -64,7 +64,6 @@ class ProofreaderDocumentAPIView(APIView):
             elif file_obj.check_docx:
                 translated_file = self.td.translate_docx(doc_file=file_obj, proofread=True)
             else:
-                print("Not Found")
                 return Response(status=status.HTTP_404_NOT_FOUND)
 
             file_obj.proofread_file = translated_file
@@ -72,4 +71,5 @@ class ProofreaderDocumentAPIView(APIView):
 
             return Response(file_obj.proofread_file.url, status=status.HTTP_200_OK)
         else:
+            print("no Document")
             return Response(status=status.HTTP_404_NOT_FOUND)
