@@ -38,10 +38,10 @@ class ProofreaderAPIView(APIView):
 
 class ProofreaderDocumentAPIView(APIView):
     """
-    API View to get word
+    API View to get proofreading
     Example:
     {
-        "word": "Hello There"
+        "document": "FILE"
     }
 
     """
