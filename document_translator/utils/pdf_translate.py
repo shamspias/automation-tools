@@ -7,12 +7,16 @@ from django.conf import settings
 
 class TranslatePDF:
 
-    def doc2pdf_linux(self, doc):
+    def doc2pdf_linux(self, doc, proofread=False):
         """
         convert a doc/docx document to pdf format (linux only, requires libreoffice)
         :param doc: path to document
         """
-        path_project = settings.CONVERTED_FILE_LOCATION + 'translated/'
+        if proofread:
+            path_project = settings.CONVERTED_FILE_LOCATION + 'proofread/'
+        else:
+            path_project = settings.CONVERTED_FILE_LOCATION + 'translated/'
+
         cmd = 'libreoffice --convert-to pdf'.split() + [doc] + ['--outdir'] + [path_project]
         p = subprocess.Popen(cmd, stderr=subprocess.PIPE, stdout=subprocess.PIPE)
         p.wait(timeout=1000)
@@ -46,7 +50,10 @@ class TranslatePDF:
             convert(target_word_file, new_pdf_file_name)
 
         except:
-            self.doc2pdf_linux(target_word_file)
+            if proofread:
+                self.doc2pdf_linux(target_word_file, proofread=True)
+            else:
+                self.doc2pdf_linux(target_word_file)
 
         os.remove(word_file)
         os.remove(target_word_file)
