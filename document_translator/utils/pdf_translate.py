@@ -20,7 +20,7 @@ class TranslatePDF:
         if stderr:
             raise subprocess.SubprocessError(stderr)
 
-    def translate_pdf(self, pdf_file, source_ln, target_ln):
+    def translate_pdf(self, pdf_file, source_ln="auto", target_ln="en", proofread=False):
         """
         make pdf into word
         translate the word make it into pdf and remove the converted word
@@ -36,7 +36,11 @@ class TranslatePDF:
 
         new_path = language_translation(word_file, target_word_file, source_ln, target_ln)
 
-        new_pdf_file_name = settings.CONVERTED_FILE_LOCATION + "translated/" + target_ln + "_" + pdf_file_name
+        if proofread:
+            new_pdf_file_name = settings.CONVERTED_FILE_LOCATION + "proofread/" + target_ln + "_" + pdf_file_name
+        else:
+            new_pdf_file_name = settings.CONVERTED_FILE_LOCATION + "translated/" + target_ln + "_" + pdf_file_name
+
         try:
             from docx2pdf import convert
             convert(target_word_file, new_pdf_file_name)
@@ -46,4 +50,7 @@ class TranslatePDF:
 
         os.remove(word_file)
         os.remove(target_word_file)
-        return "translated/" + pdf_file_name
+        if proofread:
+            return "proofread/" + pdf_file_name
+        else:
+            return "translated/" + pdf_file_name

@@ -14,8 +14,10 @@ from deep_translator import (GoogleTranslator,
                              single_detection,
                              batch_detection)
 
+from ai_proofreader.utils import ai_proofreading
 
-def language_translation(source_doc, target_doc, source_lan, target_lan):
+
+def language_translation(source_doc, target_doc, source_lan, target_lan, proofread=False):
     """
     To translate Language
     return docx file
@@ -46,11 +48,23 @@ def language_translation(source_doc, target_doc, source_lan, target_lan):
 
     target_tags = list(dict.fromkeys(target_tags))  # removing duplicates
 
-    for i in soup.findAll(target_tags):
-        try:
-            i.string.replace_with(GoogleTranslator(source=source_language, target=target_language).translate(i.string))
-        except:
-            print("")
+    if proofread:
+        for i in soup.findAll(target_tags):
+            try:
+                i.string.replace_with(ai_proofreading(i.string))
+            except:
+                print("")
+        print("Document proofreading is completed.")
+
+    else:
+        for i in soup.findAll(target_tags):
+            try:
+                i.string.replace_with(
+                    GoogleTranslator(source=source_language, target=target_language).translate(i.string))
+            except:
+                print("")
+
+        print("Document translation is completed.")
 
     with open("output1.html", "w") as file:
         file.write(str(soup))
@@ -59,5 +73,4 @@ def language_translation(source_doc, target_doc, source_lan, target_lan):
     pypandoc.convert_file('output1.html', 'docx', outputfile=target)
     os.remove("output1.html")
 
-    print("Document translation is completed.")
     return target
