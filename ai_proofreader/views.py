@@ -50,13 +50,7 @@ class ProofreaderDocumentAPIView(APIView):
     td = TranslateDocx()
 
     def post(self, request, *args, **kwargs):
-        """
-        Get correct word
-        :param request: string
-        :param args: word
-        :param kwargs:
-        :return:
-        """
+
         document = request.FILES.get('document', '')
         if document:
             random_name = ''.join(random.choices(string.ascii_lowercase + string.digits, k=5))
@@ -70,6 +64,7 @@ class ProofreaderDocumentAPIView(APIView):
             elif file_obj.check_docx:
                 translated_file = self.td.translate_docx(doc_file=file_obj, proofread=True)
             else:
+                print("Not Found")
                 return Response(status=status.HTTP_404_NOT_FOUND)
 
             file_obj.proofread_file = translated_file
