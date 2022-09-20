@@ -40,7 +40,7 @@ urlpatterns = [
     path('', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger'),
 
     path('blog/', include('auto_blog_writer.urls'), name='ai-blog-writer'),
-    path('proofreader/', include('ai_proofreader.urls'), name='ai-proofreader'),
+    path('proof-reader/', include('ai_proofreader.urls'), name='ai-proofreader'),
     path('translate/', include('document_translator.urls'), name='document-translator'),
 ]
 
