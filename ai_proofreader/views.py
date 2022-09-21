@@ -66,10 +66,14 @@ class ProofreaderDocumentAPIView(APIView):
             else:
                 return Response(status=status.HTTP_404_NOT_FOUND)
 
-            file_obj.proofread_file = translated_file
+            file_obj.proofread_file = translated_file[0]
             file_obj.save()
+            context = {
+                "number_of_words": translated_file[1],
+                "url": file_obj.proofread_file.url
+            }
 
-            return Response(file_obj.proofread_file.url, status=status.HTTP_200_OK)
+            return Response(context, status=status.HTTP_200_OK)
         else:
             print("no Document")
             return Response(status=status.HTTP_404_NOT_FOUND)
