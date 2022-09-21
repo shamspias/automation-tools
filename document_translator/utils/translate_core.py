@@ -17,6 +17,11 @@ from deep_translator import (GoogleTranslator,
 from ai_proofreader.utils import ai_proofreading
 
 
+def count_words(my_string):
+    word_list = my_string.split()
+    return len(word_list)
+
+
 def language_translation(source_doc, target_doc, source_lan, target_lan, proofread=False):
     """
     To translate Language
@@ -47,10 +52,11 @@ def language_translation(source_doc, target_doc, source_lan, target_lan, proofre
             target_tags[i] = target_tags[i][:target_tags[i].index(" ")]
 
     target_tags = list(dict.fromkeys(target_tags))  # removing duplicates
-
+    count_number_of_words = 0
     if proofread:
         for i in soup.findAll(target_tags):
             try:
+                count_number_of_words += count_words(i.string)
                 i.string.replace_with(ai_proofreading(i.string))
             except:
                 print("")
@@ -59,6 +65,7 @@ def language_translation(source_doc, target_doc, source_lan, target_lan, proofre
     else:
         for i in soup.findAll(target_tags):
             try:
+                count_number_of_words += count_words(i.string)
                 i.string.replace_with(
                     GoogleTranslator(source=source_language, target=target_language).translate(i.string))
             except:
@@ -73,4 +80,4 @@ def language_translation(source_doc, target_doc, source_lan, target_lan, proofre
     pypandoc.convert_file('output1.html', 'docx', outputfile=target)
     os.remove("output1.html")
 
-    return target
+    return count_number_of_words
