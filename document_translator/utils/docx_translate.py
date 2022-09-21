@@ -11,9 +11,9 @@ class TranslateDocx:
         word_file = target_ln + "_" + doc_file_name
         if proofread:
             new_docx_file_name = settings.CONVERTED_FILE_LOCATION + "proofread/" + word_file
-            language_translation(doc_file.my_file.path, new_docx_file_name, source_ln, target_ln, proofread=proofread)
-            return "proofread/" + word_file
+            number_of_words = language_translation(doc_file.my_file.path, new_docx_file_name, source_ln, target_ln, proofread=proofread)
+            return "proofread/" + word_file, number_of_words
         else:
             new_docx_file_name = settings.CONVERTED_FILE_LOCATION + "translated/" + word_file
-            language_translation(doc_file.my_file.path, new_docx_file_name, source_ln, target_ln, proofread=proofread)
-            return "translated/" + word_file
+            number_of_words = language_translation(doc_file.my_file.path, new_docx_file_name, source_ln, target_ln, proofread=proofread)
+            return "translated/" + word_file, number_of_words

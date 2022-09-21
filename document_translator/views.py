@@ -32,10 +32,14 @@ class TranslateDocumentAPIView(APIView):
             file_obj = TranslatedFile.objects.get(name__exact=new_name)
 
             translated_file = self.td.translate_docx(doc_file=file_obj, source_ln=source_ln, target_ln=target_ln)
-            file_obj.translated_file = translated_file
+            file_obj.translated_file = translated_file[0]
             file_obj.save()
+            context = {
+                "number_of_words": translated_file[1],
+                "url": file_obj.translated_file.url
+            }
 
-            return Response(file_obj.translated_file.url, status=status.HTTP_200_OK)
+            return Response(context, status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -59,10 +63,14 @@ class TranslatePDFAPIView(APIView):
             file_obj = TranslatedFile.objects.get(name__exact=new_name)
 
             translated_file = self.tp.translate_pdf(pdf_file=file_obj, source_ln=source_ln, target_ln=target_ln)
-            file_obj.translated_file = translated_file
+            file_obj.translated_file = translated_file[0]
             file_obj.save()
+            context = {
+                "number_of_words": translated_file[1],
+                "url": file_obj.translated_file.url
+            }
 
-            return Response(file_obj.translated_file.url, status=status.HTTP_200_OK)
+            return Response(context, status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
 

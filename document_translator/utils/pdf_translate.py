@@ -38,7 +38,7 @@ class TranslatePDF:
 
         target_word_file = pdf_file_name[:-4] + ".docx"
 
-        new_path = language_translation(word_file, target_word_file, source_ln, target_ln)
+        number_of_words = language_translation(word_file, target_word_file, source_ln, target_ln)
 
         if proofread:
             new_pdf_file_name = settings.CONVERTED_FILE_LOCATION + "proofread/" + target_ln + "_" + pdf_file_name
@@ -58,6 +58,6 @@ class TranslatePDF:
         os.remove(word_file)
         os.remove(target_word_file)
         if proofread:
-            return "proofread/" + pdf_file_name
+            return "proofread/" + pdf_file_name, number_of_words
         else:
-            return "translated/" + pdf_file_name
+            return "translated/" + pdf_file_name, number_of_words
