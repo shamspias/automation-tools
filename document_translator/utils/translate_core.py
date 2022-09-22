@@ -57,7 +57,10 @@ def language_translation(source_doc, target_doc, source_lan, target_lan, proofre
         for i in soup.findAll(target_tags):
             try:
                 count_number_of_words += count_words(i.string)
-                i.string.replace_with(ai_proofreading(i.string))
+                my_proofread_list = ai_proofreading(i.string)
+                my_proofread_text_string = ' '.join(map(str, my_proofread_list['correction']))
+                if " " in i.string:
+                    i.string.replace_with(my_proofread_text_string)
             except:
                 print("")
         print("Document proofreading is completed.")
