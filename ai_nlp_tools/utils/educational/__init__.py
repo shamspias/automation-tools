@@ -1,0 +1,1 @@
+from .research_paper import normal_research_paper
