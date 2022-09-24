@@ -35,11 +35,11 @@ class SectionsAPIView(APIView):
         """
         Blog section names from topic
         {
-            "topic": "Your text"
+            "title": "Your text"
         }
         """
-        topic = request.data.get('topic', '')
-        return Response(generate_blog_sections(topic), status=status.HTTP_200_OK)
+        title = request.data.get('title', '')
+        return Response(generate_blog_sections(title), status=status.HTTP_200_OK)
 
 
 class SectionDetailsAPIView(APIView):
@@ -52,10 +52,10 @@ class SectionDetailsAPIView(APIView):
         """
         Blog section details get from section with topic
         {
-            "topic": "Your text" ,
+            "title": "Your text" ,
             "section": "Introduction"
         }
         """
-        topic = request.data.get('topic', '')
+        title = request.data.get('title', '')
         section = request.data.get('section', '')
-        return Response(blog_section_expander(topic, section), status=status.HTTP_200_OK)
+        return Response(blog_section_expander(title, section), status=status.HTTP_200_OK)
