@@ -34,10 +34,10 @@ def generate_blog_sections(prompt):
         presence_penalty=0
     )
 
-    context['input'] = prompt
-    my_text = response['choices'][0]['text']
-    context['sections'] = my_text.split("\n")
-    context['sections'][0] = "- Introduction"
+    my_text = response['choices'][0]['text'].split("\n")
+    my_text[0] = "- Introduction: "
+    context['data'] = [value[2:] for value in my_text]
+
     return context
 
 
