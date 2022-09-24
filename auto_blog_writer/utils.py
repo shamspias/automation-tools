@@ -45,7 +45,7 @@ def blog_section_expander(prompt, section):
     context = {}
     response = openai.Completion.create(
         engine="text-davinci-002",
-        prompt="Blog topic {} \n\n."
+        prompt="Blog title {} \n\n."
                "Expand the blog section in to a detailed professional , witty and clever explanation.\n\n {}".format(
             prompt, section),
         temperature=0.7,
@@ -54,13 +54,8 @@ def blog_section_expander(prompt, section):
         frequency_penalty=0,
         presence_penalty=0
     )
-    context['input_parent'] = section
-    context['input'] = {
-        "Topic": prompt,
-        "Section": section
-    }
-    my_text = response['choices'][0]['text']
-    context['section_details'] = my_text.split("\n")
-    while "" in context['section_details']:
-        context['section_details'].remove("")
+
+    my_text = response['choices'][0]['text'].split("\n")
+    context['data'] = [i for i in my_text if not (i == "" or i == " ")]
+
     return context
