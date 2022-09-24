@@ -113,9 +113,12 @@ class TranslateAudioAPIView(APIView):
         :param kwargs:
         :return:
         """
-        source_ln = request.data.get('source_ln', '')
-        target_ln = request.data.get('target_ln', '')
+        source_ln = request.data.get('source_ln', 'auto')
+        target_ln = request.data.get('target_ln', 'de')
         duration = request.data.get('duration', '')
         document = request.FILES.get('document')
-        return Response(self.avt.translate_audio(audio_file=document, source_lan=source_ln, target_lan=target_ln,
-                                                 duration=duration), status=status.HTTP_200_OK)
+        if document:
+            return Response(self.avt.translate_audio(audio_file=document, source_lan=source_ln, target_lan=target_ln,
+                                                     duration=duration), status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_204_NO_CONTENT)

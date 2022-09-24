@@ -5,6 +5,8 @@ from pdf2docx import parse
 import deep_translator as dt
 import subprocess
 
+import datetime
+
 
 class Strategy:
     # PDF to Word
@@ -67,9 +69,16 @@ class Strategy:
         :param audio_file:
         :return: string
         """
-        audio_file_wav = audio_file[:4] + ".wav"
-        command2wav = "ffmpeg -i {} {}".format(audio_file, audio_file_wav)
-        os.system(command2wav)
+        if not audio_file.name.endswith(".mp3"):
+            audio_file_mp3 = audio_file.name[:4] + ".mp3"
+            command2mp3 = "ffmpeg -i {} {}".format(audio_file, audio_file_mp3)
+            os.system(command2mp3)
+        if audio_file.name.endswith(".wav"):
+            audio_file_wav = audio_file
+        else:
+            audio_file_wav = audio_file.name[:4] + ".wav"
+            command2wav = "ffmpeg -i {} {}".format(audio_file, audio_file_wav)
+            os.system(command2wav)
 
         r = sr.Recognizer()
 
@@ -80,10 +89,12 @@ class Strategy:
             else:
                 audio_data = r.record(source)
             if language:
-                text = r.recognize_google(audio_data, language=language)
+                text = r.recognize_google(audio_data, language=language, show_all=True)
             else:
-                text = r.recognize_google(audio_data)
-        return text
+                text = r.recognize_google(audio_data, show_all=True)
+                print(text)
+
+        return text["alternative"][0]["transcript"]
 
     # Video to Text
     def video_to_text(self, video_file, duration=None, language=None):
@@ -93,7 +104,7 @@ class Strategy:
         :param language:
         :return: String
         """
-        video_as_mp3 = video_file[:4] + ".mp3"
+        video_as_mp3 = video_file.name[:4] + ".mp3"
         command2mp3 = "ffmpeg -i {} {}".format(video_file, video_as_mp3)
         os.system(command2mp3)
         return self.audio_to_text(audio_file=video_as_mp3, duration=duration, language=language)
