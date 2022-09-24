@@ -55,8 +55,7 @@ def blog_section_expander(prompt, section):
         presence_penalty=0
     )
 
-    # my_text = response['choices'][0]['text'].split("\n")
-    # context['data'] = [i for i in my_text if not (i == "" or i == " ")]
-    context['data'] = response['choices'][0]['text']
+    my_text = response['choices'][0]['text'].split("\n\n")
+    context['data'] = [i for i in my_text if not (i == "" or i == " ")]
 
     return context
