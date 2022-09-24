@@ -8,9 +8,9 @@ def ai_proofreading(prompt):
     context = {}
     response = openai.Completion.create(
         model="text-davinci-002",
-        prompt="Correct this to standard English:\n\n" + prompt,
+        prompt="Correct this to standard English:\n\n" + prompt + " \n\n",
         temperature=0,
-        max_tokens=60,
+        max_tokens=500,
         top_p=1,
         frequency_penalty=0,
         presence_penalty=0
