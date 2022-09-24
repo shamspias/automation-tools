@@ -1,0 +1,1 @@
+from .research_paper_view import NormalResearchPaperAPIView
