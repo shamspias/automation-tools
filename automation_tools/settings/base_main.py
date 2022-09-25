@@ -162,4 +162,4 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'https://ai-content-writter-client.pages.dev',
 ]
-# APPEND_SLASH = False
+APPEND_SLASH = False
