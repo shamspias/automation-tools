@@ -49,7 +49,6 @@ LOCAL_APPS = [
     'auto_blog_writer',
     'document_translator',
     'ai_proofreader',
-    'ai_nlp_tools',
 ]
 
 INSTALLED_APPS = DJANGO_DEFAULT_APPS + THIRD_PARTY_APPS + LOCAL_APPS

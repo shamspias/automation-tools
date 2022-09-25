@@ -42,7 +42,7 @@ urlpatterns = [
     path('blog/', include('auto_blog_writer.urls'), name='ai-blog-writer'),
     path('proof-reader/', include('ai_proofreader.urls'), name='ai-proofreader'),
     path('translate/', include('document_translator.urls'), name='document-translator'),
-    path('magic/', include('ai_nlp_tools.urls'), name='magic-tools'),
+    # path('magic/', include('ai_nlp_tools.urls'), name='document-translator'),
 ]
 
 if settings.DEBUG:
