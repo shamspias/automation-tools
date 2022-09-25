@@ -5,7 +5,6 @@ openai.api_key = settings.OPEN_AI_KEY
 
 
 def generate_blog_topics(prompt):
-    context = {}
     response = openai.Completion.create(
         engine="text-davinci-002",
         prompt="Generate blog topics on: {}. \n\n 1.".format(prompt),
@@ -17,13 +16,14 @@ def generate_blog_topics(prompt):
     )
 
     my_text = response['choices'][0]['text'].split("\n")
-    context['data'] = [word_value[3:] if word_value[0] != " " else word_value[4:] if i != 0 else word_value[1:] for
-                       i, word_value in enumerate(my_text) if word_value != ""]
+    context = {
+        'data': [word_value[3:] if word_value[0] != " " else word_value[4:] if i != 0 else word_value[1:] for
+                 i, word_value in enumerate(my_text) if word_value != ""]
+    }
     return context
 
 
 def generate_blog_sections(prompt):
-    context = {}
     response = openai.Completion.create(
         engine="text-davinci-002",
         prompt="Expand the blog title in to high level blog sections: {} \n\n- Introduction: ".format(prompt),
@@ -36,18 +36,19 @@ def generate_blog_sections(prompt):
 
     my_text = response['choices'][0]['text'].split("\n")
     my_text[0] = "- Introduction: "
-    context['data'] = [value[2:] for value in my_text]
+    context = {
+        'data': [value[2:] for value in my_text]
+    }
 
     return context
 
 
-def blog_section_expander(prompt, section):
-    context = {}
+def blog_section_expander(title, section):
     response = openai.Completion.create(
         engine="text-davinci-002",
         prompt="Blog title {} \n\n."
                "Expand the blog section in to a detailed professional , witty and clever explanation.\n\n {}".format(
-            prompt, section),
+            title, section),
         temperature=0.7,
         max_tokens=1024,
         top_p=1,
@@ -56,6 +57,8 @@ def blog_section_expander(prompt, section):
     )
 
     my_text = response['choices'][0]['text'].split("\n\n")
-    context['data'] = [i for i in my_text if not (i == "" or i == " ")]
+    context = {
+        'data': [i for i in my_text if not (i == "" or i == " ")]
+    }
 
     return context

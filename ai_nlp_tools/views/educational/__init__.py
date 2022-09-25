@@ -1,1 +1,1 @@
-from .research_paper_view import NormalResearchPaperAPIView
+from .research_paper_view import ResearchPaperSectionAPIView, ResearchPaperSectionExpanderAPIView

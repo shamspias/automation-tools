@@ -1,1 +1,1 @@
-from .research_paper import normal_research_paper
+from .research_paper import research_paper_sections, research_paper_section_expander
