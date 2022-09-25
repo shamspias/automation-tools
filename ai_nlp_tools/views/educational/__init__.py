@@ -1,1 +1,5 @@
-from .research_paper_view import ResearchPaperSectionAPIView, ResearchPaperSectionExpanderAPIView
+from .research_paper_view import (
+    ResearchPaperTopicAPIView,
+    ResearchPaperSectionAPIView,
+    ResearchPaperSectionExpanderAPIView,
+)
