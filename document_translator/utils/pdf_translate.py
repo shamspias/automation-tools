@@ -1,5 +1,5 @@
 from pdf2docx import parse
-import os
+from os import remove
 from .translate_core import language_translation
 import subprocess
 from django.conf import settings
@@ -55,8 +55,8 @@ class TranslatePDF:
             else:
                 self.doc2pdf_linux(target_word_file)
 
-        os.remove(word_file)
-        os.remove(target_word_file)
+        remove(word_file)
+        remove(target_word_file)
         if proofread:
             return "proofread/" + pdf_file_name, number_of_words
         else:

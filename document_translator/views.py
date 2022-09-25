@@ -1,5 +1,5 @@
-import random
-import string
+from random import choices
+from string import ascii_lowercase, digits
 from rest_framework import status
 from rest_framework.views import APIView, Response
 from .models import TranslatedFile
@@ -25,7 +25,7 @@ class TranslateDocumentAPIView(APIView):
         target_ln = request.data.get('target_ln', '')
         document = request.FILES.get('document', '')
         if document:
-            random_name = ''.join(random.choices(string.ascii_lowercase + string.digits, k=5))
+            random_name = ''.join(choices(ascii_lowercase + digits, k=5))
             new_name = random_name + document.name
 
             _file = TranslatedFile.objects.create(name=new_name, my_file=document)
@@ -56,7 +56,7 @@ class TranslatePDFAPIView(APIView):
         target_ln = request.data.get('target_ln', '')
         document = request.FILES.get('document', '')
         if document:
-            random_name = ''.join(random.choices(string.ascii_lowercase + string.digits, k=5))
+            random_name = ''.join(choices(ascii_lowercase + digits, k=5))
             new_name = random_name + document.name
 
             _file = TranslatedFile.objects.create(name=new_name, my_file=document)
