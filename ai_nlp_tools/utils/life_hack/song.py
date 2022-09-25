@@ -20,7 +20,7 @@ def normal_song(prmt):
     )
     my_text = response['choices'][0]['text'].split("\n")
     context = {
-        'data': [value[2:] for value in my_text]
+        'data': [i for i in my_text if not (i == "" or i == " ")]
     }
     return context
 
@@ -42,6 +42,6 @@ def categories_song(category, topic):
     )
     my_text = response['choices'][0]['text'].split("\n")
     context = {
-        'data': [value[2:] for value in my_text]
+        'data': [i for i in my_text if not (i == "" or i == " ")]
     }
     return context
