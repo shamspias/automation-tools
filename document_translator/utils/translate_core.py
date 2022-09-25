@@ -1,7 +1,7 @@
 import pypandoc
 from bs4 import BeautifulSoup
 import re
-import os
+from os import remove
 from deep_translator import (GoogleTranslator,
                              MicrosoftTranslator,
                              PonsTranslator,
